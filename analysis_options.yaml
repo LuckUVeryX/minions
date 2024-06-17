@@ -4,6 +4,10 @@ analyzer:
   plugins:
     - custom_lint
 
+custom_lint:
+  rules:
+    - missing_provider_scope: false
+
 linter:
   rules:
     public_member_api_docs: false

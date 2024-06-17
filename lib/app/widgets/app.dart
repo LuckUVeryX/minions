@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minions/features/auth/auth.dart';
 import 'package:minions/l10n/l10n.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
@@ -10,6 +11,7 @@ class App extends StatelessWidget {
     return const ShadApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      home: AuthPage(),
     );
   }
 }

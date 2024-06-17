@@ -3,5 +3,13 @@
     "counterAppBarTitle": "Counter",
     "@counterAppBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
-    }
+    },
+    "authLogin": "Login",
+    "authEmail": "Email",
+    "authEmailPlaceholder": "alice@evolve-minions.com",
+    "authEmailRequired": "Email is required",
+    "authPassword": "Password",
+    "authPasswordRequired": "Password is required",
+    "authLoginDesc": "Enter your email below to login to your account.",
+    "authSignIn": "Sign In"
 }

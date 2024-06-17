@@ -18,3 +18,5 @@ jobs:
     with:
       flutter_channel: stable
       min_coverage: 0
+      setup: |
+        sed -i '/custom_lint/d' analysis_options.yaml

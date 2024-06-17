@@ -29,6 +29,14 @@ class AuthForm extends HookConsumerWidget {
       );
     });
 
+    Future<void> signInEmailPassword() async {
+      final notifier = ref.read(authControllerProvider.notifier);
+      await notifier.signInEmailPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    }
+
     return AutofillGroup(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -46,26 +54,16 @@ class AuthForm extends HookConsumerWidget {
                 controller: emailController,
                 placeholder: Text(context.l10n.authEmailPlaceholder),
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
               ),
               ShadInputFormField(
                 label: Text(context.l10n.authPassword),
                 controller: passwordController,
                 obscureText: true,
+                textInputAction: TextInputAction.go,
+                onSubmitted: (_) => signInEmailPassword(),
               ),
-              ShadButton(
-                width: double.infinity,
-                text: Text(
-                  context.l10n.authSignIn,
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () async {
-                  final notifier = ref.read(authControllerProvider.notifier);
-                  await notifier.signInEmailPassword(
-                    email: emailController.text,
-                    password: passwordController.text,
-                  );
-                },
-              ),
+              SignInButton(onPressed: signInEmailPassword),
             ].insertBetween(Spacing.sp4),
           ],
         ),

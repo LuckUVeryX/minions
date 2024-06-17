@@ -1,3 +1,3 @@
 export 'providers/providers.dart';
-export 'repo/repo.dart';
+export 'repositories/repositories.dart';
 export 'widgets/widgets.dart';

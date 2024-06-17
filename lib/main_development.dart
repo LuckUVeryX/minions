@@ -6,7 +6,7 @@ void main() {
   bootstrap(
     () => const ProviderScope(
       observers: [LogObserver()],
-      child: App(),
+      child: RouterApp(),
     ),
   );
 }

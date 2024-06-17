@@ -1,4 +1,4 @@
-import 'package:minions/features/auth/repo/auth_repo.dart';
+import 'package:minions/features/auth/auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_controller.g.dart';

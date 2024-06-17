@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minions/l10n/l10n.dart';
 import 'package:minions/utils/build_context_extensions.dart';
 import 'package:minions/widgets/widgets.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -27,16 +28,16 @@ class AuthForm extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Login', style: context.textTheme.h1),
+            Text(context.l10n.login, style: context.textTheme.h2),
             Spacing.sp12,
             ShadInputFormField(
-              placeholder: const Text('Email'),
+              placeholder: Text(context.l10n.email),
               keyboardType: TextInputType.emailAddress,
             ),
-            const ShadButton(
+            ShadButton(
               width: double.infinity,
               text: Text(
-                'Sign in with Email',
+                context.l10n.login,
                 textAlign: TextAlign.center,
               ),
             ),

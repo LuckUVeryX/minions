@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:minions/app/app.dart';
 import 'package:minions/l10n/l10n.dart';
-import 'package:minions/utils/build_context_extensions.dart';
-import 'package:minions/widgets/widgets.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 class AuthPage extends StatelessWidget {

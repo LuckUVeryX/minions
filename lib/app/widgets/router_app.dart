@@ -11,6 +11,14 @@ class RouterApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     return ShadApp.router(
+      theme: ShadThemeData(
+        colorScheme: const ShadNeutralColorScheme.light(),
+        brightness: Brightness.light,
+      ),
+      darkTheme: ShadThemeData(
+        colorScheme: const ShadNeutralColorScheme.dark(),
+        brightness: Brightness.dark,
+      ),
       routerConfig: router,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

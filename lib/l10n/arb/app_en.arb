@@ -11,5 +11,12 @@
     "authPassword": "Password",
     "authPasswordRequired": "Password is required",
     "authLoginDesc": "Enter your email below to login to your account.",
-    "authSignIn": "Sign In"
+    "authSignIn": "Sign In",
+    "minionHours": "Minion Hours",
+    "facilitySelectPlaceholder": "Select a facility",
+    "start": "Start",
+    "end": "End",
+    "save": "Save",
+    "cancel": "Cancel"
+
 }

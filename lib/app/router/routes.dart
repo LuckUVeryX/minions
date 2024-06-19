@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:minions/features/auth/auth.dart';
-import 'package:minions/features/calendar/calendar.dart';
+import 'package:minions/features/root/root.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'routes.g.dart';
 
@@ -42,21 +41,6 @@ class HomeRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return Scaffold(
-      body: const SafeArea(
-        child: Column(
-          children: [
-            MinionCalendar(),
-            Spacer(),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.logout),
-        onPressed: () {
-          Supabase.instance.client.auth.signOut();
-        },
-      ),
-    );
+    return const RootPage();
   }
 }

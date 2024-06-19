@@ -18,34 +18,45 @@ class MinionCalendar extends HookConsumerWidget {
     );
 
     return ShadDecorator(
-      decoration: const ShadDecoration(
-        border: ShadBorder(),
+      decoration: ShadDecoration(
+        border: ShadBorder(
+          color: context.colorScheme.border,
+          radius: BorderRadius.circular(8),
+        ),
       ),
-      child: TableCalendar<void>(
-        locale: 'en_SG',
-        firstDay: DateTime(2023),
-        lastDay: DateTime.now().add(const Duration(days: 365)),
-        focusedDay: focusedDay.value,
-        availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-        calendarStyle: CalendarStyle(
-          defaultTextStyle: defaultTextStyle,
-          defaultDecoration: defaultDecoration,
-          weekendTextStyle: defaultTextStyle,
-          weekendDecoration: defaultDecoration,
-          outsideDecoration: defaultDecoration,
-          outsideTextStyle: defaultTextStyle.copyWith(
-            color: context.colorScheme.foreground.withOpacity(0.3),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 400),
+        child: TableCalendar<void>(
+          locale: 'en_SG',
+          firstDay: DateTime(2023),
+          lastDay: DateTime.now().add(const Duration(days: 365)),
+          focusedDay: focusedDay.value,
+          availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+          headerStyle: const HeaderStyle(
+            titleCentered: true,
+            leftChevronIcon: Icon(LucideIcons.chevronLeft),
+            rightChevronIcon: Icon(LucideIcons.chevronRight),
           ),
-          todayDecoration: defaultDecoration.copyWith(
-            color: context.colorScheme.secondary,
-          ),
-          todayTextStyle: defaultTextStyle,
-          cellMargin: const EdgeInsets.symmetric(horizontal: 4),
-          selectedDecoration: defaultDecoration.copyWith(
-            color: context.colorScheme.foreground,
-          ),
-          selectedTextStyle: defaultTextStyle.copyWith(
-            color: context.colorScheme.background,
+          calendarStyle: CalendarStyle(
+            defaultTextStyle: defaultTextStyle,
+            defaultDecoration: defaultDecoration,
+            weekendTextStyle: defaultTextStyle,
+            weekendDecoration: defaultDecoration,
+            outsideDecoration: defaultDecoration,
+            outsideTextStyle: defaultTextStyle.copyWith(
+              color: context.colorScheme.foreground.withOpacity(0.3),
+            ),
+            todayDecoration: defaultDecoration.copyWith(
+              color: context.colorScheme.secondary,
+            ),
+            todayTextStyle: defaultTextStyle,
+            cellMargin: const EdgeInsets.symmetric(horizontal: 4),
+            selectedDecoration: defaultDecoration.copyWith(
+              color: context.colorScheme.foreground,
+            ),
+            selectedTextStyle: defaultTextStyle.copyWith(
+              color: context.colorScheme.background,
+            ),
           ),
         ),
       ),

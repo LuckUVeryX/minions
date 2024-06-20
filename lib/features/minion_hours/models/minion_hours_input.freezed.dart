@@ -14,17 +14,14 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-MinionHoursInput _$MinionHoursInputFromJson(Map<String, dynamic> json) {
-  return _MinionHoursInput.fromJson(json);
-}
-
 /// @nodoc
 mixin _$MinionHoursInput {
   Facility? get facility => throw _privateConstructorUsedError;
-  DateTime? get start => throw _privateConstructorUsedError;
-  DateTime? get end => throw _privateConstructorUsedError;
+  DateTime? get date => throw _privateConstructorUsedError;
+  TimeOfDay? get startTime => throw _privateConstructorUsedError;
+  TimeOfDay? get endTime => throw _privateConstructorUsedError;
+  bool get lunchBreak => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $MinionHoursInputCopyWith<MinionHoursInput> get copyWith =>
       throw _privateConstructorUsedError;
@@ -36,7 +33,12 @@ abstract class $MinionHoursInputCopyWith<$Res> {
           MinionHoursInput value, $Res Function(MinionHoursInput) then) =
       _$MinionHoursInputCopyWithImpl<$Res, MinionHoursInput>;
   @useResult
-  $Res call({Facility? facility, DateTime? start, DateTime? end});
+  $Res call(
+      {Facility? facility,
+      DateTime? date,
+      TimeOfDay? startTime,
+      TimeOfDay? endTime,
+      bool lunchBreak});
 
   $FacilityCopyWith<$Res>? get facility;
 }
@@ -55,22 +57,32 @@ class _$MinionHoursInputCopyWithImpl<$Res, $Val extends MinionHoursInput>
   @override
   $Res call({
     Object? facility = freezed,
-    Object? start = freezed,
-    Object? end = freezed,
+    Object? date = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
+    Object? lunchBreak = null,
   }) {
     return _then(_value.copyWith(
       facility: freezed == facility
           ? _value.facility
           : facility // ignore: cast_nullable_to_non_nullable
               as Facility?,
-      start: freezed == start
-          ? _value.start
-          : start // ignore: cast_nullable_to_non_nullable
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      end: freezed == end
-          ? _value.end
-          : end // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
+      lunchBreak: null == lunchBreak
+          ? _value.lunchBreak
+          : lunchBreak // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -95,7 +107,12 @@ abstract class _$$MinionHoursInputImplCopyWith<$Res>
       __$$MinionHoursInputImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Facility? facility, DateTime? start, DateTime? end});
+  $Res call(
+      {Facility? facility,
+      DateTime? date,
+      TimeOfDay? startTime,
+      TimeOfDay? endTime,
+      bool lunchBreak});
 
   @override
   $FacilityCopyWith<$Res>? get facility;
@@ -113,45 +130,62 @@ class __$$MinionHoursInputImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? facility = freezed,
-    Object? start = freezed,
-    Object? end = freezed,
+    Object? date = freezed,
+    Object? startTime = freezed,
+    Object? endTime = freezed,
+    Object? lunchBreak = null,
   }) {
     return _then(_$MinionHoursInputImpl(
       facility: freezed == facility
           ? _value.facility
           : facility // ignore: cast_nullable_to_non_nullable
               as Facility?,
-      start: freezed == start
-          ? _value.start
-          : start // ignore: cast_nullable_to_non_nullable
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      end: freezed == end
-          ? _value.end
-          : end // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      startTime: freezed == startTime
+          ? _value.startTime
+          : startTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
+      endTime: freezed == endTime
+          ? _value.endTime
+          : endTime // ignore: cast_nullable_to_non_nullable
+              as TimeOfDay?,
+      lunchBreak: null == lunchBreak
+          ? _value.lunchBreak
+          : lunchBreak // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
-class _$MinionHoursInputImpl extends _MinionHoursInput {
-  const _$MinionHoursInputImpl({this.facility, this.start, this.end})
-      : super._();
 
-  factory _$MinionHoursInputImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MinionHoursInputImplFromJson(json);
+class _$MinionHoursInputImpl extends _MinionHoursInput {
+  const _$MinionHoursInputImpl(
+      {this.facility,
+      this.date,
+      this.startTime,
+      this.endTime,
+      this.lunchBreak = false})
+      : super._();
 
   @override
   final Facility? facility;
   @override
-  final DateTime? start;
+  final DateTime? date;
   @override
-  final DateTime? end;
+  final TimeOfDay? startTime;
+  @override
+  final TimeOfDay? endTime;
+  @override
+  @JsonKey()
+  final bool lunchBreak;
 
   @override
   String toString() {
-    return 'MinionHoursInput(facility: $facility, start: $start, end: $end)';
+    return 'MinionHoursInput(facility: $facility, date: $date, startTime: $startTime, endTime: $endTime, lunchBreak: $lunchBreak)';
   }
 
   @override
@@ -161,13 +195,17 @@ class _$MinionHoursInputImpl extends _MinionHoursInput {
             other is _$MinionHoursInputImpl &&
             (identical(other.facility, facility) ||
                 other.facility == facility) &&
-            (identical(other.start, start) || other.start == start) &&
-            (identical(other.end, end) || other.end == end));
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.startTime, startTime) ||
+                other.startTime == startTime) &&
+            (identical(other.endTime, endTime) || other.endTime == endTime) &&
+            (identical(other.lunchBreak, lunchBreak) ||
+                other.lunchBreak == lunchBreak));
   }
 
-  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, facility, start, end);
+  int get hashCode =>
+      Object.hash(runtimeType, facility, date, startTime, endTime, lunchBreak);
 
   @JsonKey(ignore: true)
   @override
@@ -175,31 +213,27 @@ class _$MinionHoursInputImpl extends _MinionHoursInput {
   _$$MinionHoursInputImplCopyWith<_$MinionHoursInputImpl> get copyWith =>
       __$$MinionHoursInputImplCopyWithImpl<_$MinionHoursInputImpl>(
           this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MinionHoursInputImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _MinionHoursInput extends MinionHoursInput {
   const factory _MinionHoursInput(
       {final Facility? facility,
-      final DateTime? start,
-      final DateTime? end}) = _$MinionHoursInputImpl;
+      final DateTime? date,
+      final TimeOfDay? startTime,
+      final TimeOfDay? endTime,
+      final bool lunchBreak}) = _$MinionHoursInputImpl;
   const _MinionHoursInput._() : super._();
-
-  factory _MinionHoursInput.fromJson(Map<String, dynamic> json) =
-      _$MinionHoursInputImpl.fromJson;
 
   @override
   Facility? get facility;
   @override
-  DateTime? get start;
+  DateTime? get date;
   @override
-  DateTime? get end;
+  TimeOfDay? get startTime;
+  @override
+  TimeOfDay? get endTime;
+  @override
+  bool get lunchBreak;
   @override
   @JsonKey(ignore: true)
   _$$MinionHoursInputImplCopyWith<_$MinionHoursInputImpl> get copyWith =>

@@ -19,8 +19,9 @@ class RootPage extends HookConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(LucideIcons.plus),
-        onPressed: () {
-          MinionHoursDialog.show(context);
+        onPressed: () async {
+          final input = await MinionHoursDialog.show(context);
+          if (input == null) return;
         },
       ),
     );

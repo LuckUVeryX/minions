@@ -92,6 +92,13 @@ class MinionHoursDialog extends HookConsumerWidget {
               ),
             ],
           ),
+          Spacing.sp4,
+          ShadCheckbox(
+            value: false,
+            onChanged: (value) {},
+            label: Text(context.l10n.lunchBreak),
+            sublabel: Text(context.l10n.lunchBreakDesc),
+          ),
           Spacing.sp8,
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

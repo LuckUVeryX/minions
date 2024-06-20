@@ -16,7 +16,8 @@
     "facilitySelectPlaceholder": "Select a facility",
     "start": "Start",
     "end": "End",
+    "lunchBreak": "Lunch Break",
+    "lunchBreakDesc": "1 hour will be deducted from total slaved hours.",
     "save": "Save",
     "cancel": "Cancel"
-
 }

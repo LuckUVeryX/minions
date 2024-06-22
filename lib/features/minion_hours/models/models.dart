@@ -1,1 +1,1 @@
-export 'minion_hours_input.dart';
+export 'minion_hours_io.dart';

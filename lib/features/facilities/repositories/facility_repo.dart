@@ -15,8 +15,10 @@ class FacilityRepo {
 
   final SupabaseClient _client;
 
+  static const _table = 'Facilities';
+
   Future<List<Facility>> getFacilities() async {
-    final response = await _client.from('Facilities').select();
+    final response = await _client.from(_table).select();
     return response.map(Facility.fromJson).toList();
   }
 }

@@ -12,7 +12,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 class MinionHoursDialog extends HookConsumerWidget {
   const MinionHoursDialog._();
 
-  static Future<MinionHoursInput?> show(BuildContext context) {
+  static Future<MinionHoursState?> show(BuildContext context) {
     return showShadDialog(
       context: context,
       barrierDismissible: false,
@@ -23,15 +23,11 @@ class MinionHoursDialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final facilities = ref.watch(facilitiesProvider);
-    final input = ref.watch(minionHoursControllerProvider);
+    final input = ref.watch(minionHoursEditControllerProvider);
 
     useEffect(
       () {
-        () async {
-          ref
-              .read(minionHoursControllerProvider.notifier)
-              .onDateChanged(DateTime.now());
-        }.call();
+        Future(ref.read(minionHoursEditControllerProvider.notifier).init);
         return null;
       },
       [],
@@ -63,7 +59,7 @@ class MinionHoursDialog extends HookConsumerWidget {
                 selectedOptionBuilder: (_, value) => Text(value.name),
                 onChanged: (value) {
                   ref
-                      .read(minionHoursControllerProvider.notifier)
+                      .read(minionHoursEditControllerProvider.notifier)
                       .onFacilityChanged(value);
                 },
               ),
@@ -78,7 +74,8 @@ class MinionHoursDialog extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             text: Text(DateFormat.yMd().format(input.date ?? DateTime.now())),
             onPressed: () async {
-              final notifier = ref.read(minionHoursControllerProvider.notifier);
+              final notifier =
+                  ref.read(minionHoursEditControllerProvider.notifier);
 
               final now = DateTime.now();
               final date = await showDatePicker(
@@ -101,13 +98,23 @@ class MinionHoursDialog extends HookConsumerWidget {
                   ),
                   onPressed: () async {
                     final notifier =
-                        ref.read(minionHoursControllerProvider.notifier);
-                    final time = await showTimePicker(
+                        ref.read(minionHoursEditControllerProvider.notifier);
+                    final start = await showTimePicker(
                       context: context,
                       initialTime: input.startTime ?? TimeOfDay.now(),
                     );
-                    if (time == null) return;
-                    notifier.onStartTimeChanged(time);
+                    if (start == null) return;
+                    notifier.onStartTimeChanged(start);
+
+                    if (!context.mounted) return;
+                    if (input.endTime != null) return;
+
+                    final end = await showTimePicker(
+                      context: context,
+                      initialTime: start,
+                    );
+                    if (end == null) return;
+                    notifier.onEndTimeChanged(end);
                   },
                 ),
               ),
@@ -117,10 +124,11 @@ class MinionHoursDialog extends HookConsumerWidget {
                       Text(input.endTime?.format(context) ?? context.l10n.end),
                   onPressed: () async {
                     final notifier =
-                        ref.read(minionHoursControllerProvider.notifier);
+                        ref.read(minionHoursEditControllerProvider.notifier);
                     final time = await showTimePicker(
                       context: context,
-                      initialTime: input.endTime ?? TimeOfDay.now(),
+                      initialTime:
+                          input.endTime ?? input.startTime ?? TimeOfDay.now(),
                     );
                     if (time == null) return;
                     notifier.onEndTimeChanged(time);
@@ -134,7 +142,7 @@ class MinionHoursDialog extends HookConsumerWidget {
             value: input.lunchBreak,
             onChanged: (value) {
               ref
-                  .read(minionHoursControllerProvider.notifier)
+                  .read(minionHoursEditControllerProvider.notifier)
                   .onLunchBreakChanged(value);
             },
             label: Text(context.l10n.lunchBreak),

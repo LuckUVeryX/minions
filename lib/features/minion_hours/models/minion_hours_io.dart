@@ -46,7 +46,7 @@ class MinionHoursInput with _$MinionHoursInput {
   factory MinionHoursInput.fromJson(Map<String, dynamic> json) =>
       _$MinionHoursInputFromJson(json);
 
-  MinionHoursInput fromState({
+  factory MinionHoursInput.fromState({
     required MinionHoursState state,
     required String userId,
   }) {

@@ -12,7 +12,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 class MinionHoursDialog extends HookConsumerWidget {
   const MinionHoursDialog._();
 
-  static Future<MinionHoursInput?> show(BuildContext context) {
+  static Future<MinionHoursState?> show(BuildContext context) {
     return showShadDialog(
       context: context,
       barrierDismissible: false,

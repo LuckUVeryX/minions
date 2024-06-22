@@ -5,5 +5,6 @@ part 'facilities_provider.g.dart';
 
 @riverpod
 FutureOr<List<Facility>> facilities(FacilitiesRef ref) {
+  ref.keepAlive();
   return ref.watch(facilityRepoProvider).getFacilities();
 }

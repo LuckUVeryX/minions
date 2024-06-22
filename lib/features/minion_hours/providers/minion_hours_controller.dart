@@ -13,6 +13,10 @@ class MinionHoursController extends _$MinionHoursController {
     return const MinionHoursInput();
   }
 
+  void init() {
+    state = state.copyWith(date: DateTime.now());
+  }
+
   void onFacilityChanged(Facility value) {
     state = state.copyWith(facility: value);
   }

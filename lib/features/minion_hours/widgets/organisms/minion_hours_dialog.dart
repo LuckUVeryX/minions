@@ -27,11 +27,7 @@ class MinionHoursDialog extends HookConsumerWidget {
 
     useEffect(
       () {
-        () async {
-          ref
-              .read(minionHoursControllerProvider.notifier)
-              .onDateChanged(DateTime.now());
-        }.call();
+        Future(ref.read(minionHoursControllerProvider.notifier).init);
         return null;
       },
       [],

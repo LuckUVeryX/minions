@@ -9,8 +9,8 @@ part 'minion_hours_controller.g.dart';
 @riverpod
 class MinionHoursController extends _$MinionHoursController {
   @override
-  MinionHoursInput build() {
-    return const MinionHoursInput();
+  MinionHoursState build() {
+    return const MinionHoursState();
   }
 
   void init() {

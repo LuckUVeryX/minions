@@ -4,10 +4,10 @@ import 'package:minions/features/facilities/facilities.dart';
 import 'package:minions/features/minion_hours/minion_hours.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'minion_hours_controller.g.dart';
+part 'minion_hours_edit_controller.g.dart';
 
 @riverpod
-class MinionHoursController extends _$MinionHoursController {
+class MinionHoursEditController extends _$MinionHoursEditController {
   @override
   MinionHoursState build() {
     return const MinionHoursState();

@@ -15,7 +15,7 @@ class MinionHoursRepo {
 
   final SupabaseClient _client;
 
-  static const _table = 'minion_hours';
+  static const _table = 'MinionHours';
 
   Future<void> insert(MinionHoursInput value) {
     return _client.from(_table).insert(value.toJson());

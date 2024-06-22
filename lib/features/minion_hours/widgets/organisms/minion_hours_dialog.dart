@@ -99,12 +99,22 @@ class MinionHoursDialog extends HookConsumerWidget {
                   onPressed: () async {
                     final notifier =
                         ref.read(minionHoursEditControllerProvider.notifier);
-                    final time = await showTimePicker(
+                    final start = await showTimePicker(
                       context: context,
                       initialTime: input.startTime ?? TimeOfDay.now(),
                     );
-                    if (time == null) return;
-                    notifier.onStartTimeChanged(time);
+                    if (start == null) return;
+                    notifier.onStartTimeChanged(start);
+
+                    if (!context.mounted) return;
+                    if (input.endTime != null) return;
+
+                    final end = await showTimePicker(
+                      context: context,
+                      initialTime: start,
+                    );
+                    if (end == null) return;
+                    notifier.onEndTimeChanged(end);
                   },
                 ),
               ),
@@ -117,7 +127,8 @@ class MinionHoursDialog extends HookConsumerWidget {
                         ref.read(minionHoursEditControllerProvider.notifier);
                     final time = await showTimePicker(
                       context: context,
-                      initialTime: input.endTime ?? TimeOfDay.now(),
+                      initialTime:
+                          input.endTime ?? input.startTime ?? TimeOfDay.now(),
                     );
                     if (time == null) return;
                     notifier.onEndTimeChanged(time);

@@ -17,12 +17,29 @@ class MinionHoursRepo {
 
   static const _table = 'MinionHours';
 
+  static const _columns = '''
+id,
+created_at,
+updated_at,
+user_id,
+facility_id,
+start,
+end,
+lunch_break,
+Facilities(
+  id,
+  name,
+  short_name,
+  created_at,
+  updated_at
+)''';
+
   Future<List<MinionHoursOutput>> getMonth(DateTime dt) {
     final start = DateTime(dt.year, dt.month);
     final end = DateTime(dt.year, dt.month + 1);
     return _client
         .from(_table)
-        .select()
+        .select(_columns)
         .gte('start', start.toIso8601String())
         .lte('end', end.toIso8601String())
         .withConverter((data) => data.map(MinionHoursOutput.fromJson).toList());

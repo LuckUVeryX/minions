@@ -500,6 +500,8 @@ mixin _$MinionHoursOutput {
   DateTime get start => throw _privateConstructorUsedError;
   DateTime get end => throw _privateConstructorUsedError;
   bool get lunchBreak => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Facilities')
+  Facility get facility => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -521,7 +523,10 @@ abstract class $MinionHoursOutputCopyWith<$Res> {
       String facilityId,
       DateTime start,
       DateTime end,
-      bool lunchBreak});
+      bool lunchBreak,
+      @JsonKey(name: 'Facilities') Facility facility});
+
+  $FacilityCopyWith<$Res> get facility;
 }
 
 /// @nodoc
@@ -545,6 +550,7 @@ class _$MinionHoursOutputCopyWithImpl<$Res, $Val extends MinionHoursOutput>
     Object? start = null,
     Object? end = null,
     Object? lunchBreak = null,
+    Object? facility = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -579,7 +585,19 @@ class _$MinionHoursOutputCopyWithImpl<$Res, $Val extends MinionHoursOutput>
           ? _value.lunchBreak
           : lunchBreak // ignore: cast_nullable_to_non_nullable
               as bool,
+      facility: null == facility
+          ? _value.facility
+          : facility // ignore: cast_nullable_to_non_nullable
+              as Facility,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $FacilityCopyWith<$Res> get facility {
+    return $FacilityCopyWith<$Res>(_value.facility, (value) {
+      return _then(_value.copyWith(facility: value) as $Val);
+    });
   }
 }
 
@@ -599,7 +617,11 @@ abstract class _$$MinionHoursOutputImplCopyWith<$Res>
       String facilityId,
       DateTime start,
       DateTime end,
-      bool lunchBreak});
+      bool lunchBreak,
+      @JsonKey(name: 'Facilities') Facility facility});
+
+  @override
+  $FacilityCopyWith<$Res> get facility;
 }
 
 /// @nodoc
@@ -621,6 +643,7 @@ class __$$MinionHoursOutputImplCopyWithImpl<$Res>
     Object? start = null,
     Object? end = null,
     Object? lunchBreak = null,
+    Object? facility = null,
   }) {
     return _then(_$MinionHoursOutputImpl(
       id: null == id
@@ -655,6 +678,10 @@ class __$$MinionHoursOutputImplCopyWithImpl<$Res>
           ? _value.lunchBreak
           : lunchBreak // ignore: cast_nullable_to_non_nullable
               as bool,
+      facility: null == facility
+          ? _value.facility
+          : facility // ignore: cast_nullable_to_non_nullable
+              as Facility,
     ));
   }
 }
@@ -670,7 +697,8 @@ class _$MinionHoursOutputImpl extends _MinionHoursOutput {
       required this.facilityId,
       required this.start,
       required this.end,
-      required this.lunchBreak})
+      required this.lunchBreak,
+      @JsonKey(name: 'Facilities') required this.facility})
       : super._();
 
   factory _$MinionHoursOutputImpl.fromJson(Map<String, dynamic> json) =>
@@ -692,10 +720,13 @@ class _$MinionHoursOutputImpl extends _MinionHoursOutput {
   final DateTime end;
   @override
   final bool lunchBreak;
+  @override
+  @JsonKey(name: 'Facilities')
+  final Facility facility;
 
   @override
   String toString() {
-    return 'MinionHoursOutput(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, facilityId: $facilityId, start: $start, end: $end, lunchBreak: $lunchBreak)';
+    return 'MinionHoursOutput(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, userId: $userId, facilityId: $facilityId, start: $start, end: $end, lunchBreak: $lunchBreak, facility: $facility)';
   }
 
   @override
@@ -714,13 +745,15 @@ class _$MinionHoursOutputImpl extends _MinionHoursOutput {
             (identical(other.start, start) || other.start == start) &&
             (identical(other.end, end) || other.end == end) &&
             (identical(other.lunchBreak, lunchBreak) ||
-                other.lunchBreak == lunchBreak));
+                other.lunchBreak == lunchBreak) &&
+            (identical(other.facility, facility) ||
+                other.facility == facility));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, createdAt, updatedAt, userId,
-      facilityId, start, end, lunchBreak);
+      facilityId, start, end, lunchBreak, facility);
 
   @JsonKey(ignore: true)
   @override
@@ -739,14 +772,16 @@ class _$MinionHoursOutputImpl extends _MinionHoursOutput {
 
 abstract class _MinionHoursOutput extends MinionHoursOutput {
   const factory _MinionHoursOutput(
-      {required final int id,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
-      required final String userId,
-      required final String facilityId,
-      required final DateTime start,
-      required final DateTime end,
-      required final bool lunchBreak}) = _$MinionHoursOutputImpl;
+          {required final int id,
+          required final DateTime createdAt,
+          required final DateTime updatedAt,
+          required final String userId,
+          required final String facilityId,
+          required final DateTime start,
+          required final DateTime end,
+          required final bool lunchBreak,
+          @JsonKey(name: 'Facilities') required final Facility facility}) =
+      _$MinionHoursOutputImpl;
   const _MinionHoursOutput._() : super._();
 
   factory _MinionHoursOutput.fromJson(Map<String, dynamic> json) =
@@ -768,6 +803,9 @@ abstract class _MinionHoursOutput extends MinionHoursOutput {
   DateTime get end;
   @override
   bool get lunchBreak;
+  @override
+  @JsonKey(name: 'Facilities')
+  Facility get facility;
   @override
   @JsonKey(ignore: true)
   _$$MinionHoursOutputImplCopyWith<_$MinionHoursOutputImpl> get copyWith =>

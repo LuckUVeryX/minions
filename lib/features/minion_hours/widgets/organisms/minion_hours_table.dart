@@ -48,8 +48,10 @@ class MinionHoursTable extends HookConsumerWidget {
       rowCount: value.length,
       columnSpanExtent: (index) {
         return switch (index) {
+          0 => const FixedSpanExtent(92),
           1 => const FixedSpanExtent(100),
           2 => const FixedSpanExtent(120),
+          3 => const RemainingSpanExtent(),
           _ => null,
         };
       },
@@ -80,7 +82,7 @@ class MinionHoursTable extends HookConsumerWidget {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     context.l10n.total,
-                    style: context.textTheme.blockquote,
+                    style: context.textTheme.blockquote.copyWith(fontSize: 14),
                   ),
                 );
               }
@@ -99,7 +101,7 @@ class MinionHoursTable extends HookConsumerWidget {
                   alignment: Alignment.centerRight,
                   child: Text(
                     total.toHm(),
-                    style: context.textTheme.blockquote,
+                    style: context.textTheme.blockquote.copyWith(fontSize: 14),
                   ),
                 );
               }

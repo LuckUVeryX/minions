@@ -144,13 +144,3 @@ class MinionCalendar extends HookConsumerWidget {
     );
   }
 }
-
-extension on DateTime {
-  DateTime firstDayOfMonth() {
-    return DateTime(year, month);
-  }
-
-  DateTime dayEnd() {
-    return DateTime(year, month, day, 23, 59, 59, 999, 999);
-  }
-}

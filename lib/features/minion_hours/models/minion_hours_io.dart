@@ -97,6 +97,34 @@ class MinionHoursOutput with _$MinionHoursOutput {
   Duration get duration {
     return end.difference(start) - Duration(hours: lunchBreak ? 1 : 0);
   }
+
+  MinionHoursState toState() {
+    return MinionHoursState(
+      id: id,
+      facility: facility,
+      date: start,
+      startTime: TimeOfDay.fromDateTime(start),
+      endTime: TimeOfDay.fromDateTime(end),
+      lunchBreak: lunchBreak,
+    );
+  }
+
+  MinionHoursOutput merge(MinionHoursState state) {
+    assert(state.isValid(), 'Invalid MinonHoursState');
+
+    final date = state.date!;
+    final start = state.startTime!.toDateTime(date);
+    final end = state.endTime!.toDateTime(date);
+    final facility = state.facility!;
+
+    return copyWith(
+      facilityId: facility.id,
+      start: start,
+      end: end,
+      lunchBreak: state.lunchBreak,
+      facility: facility,
+    );
+  }
 }
 
 extension on TimeOfDay {

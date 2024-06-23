@@ -10,13 +10,20 @@ import 'package:minions/l10n/l10n.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 class MinionHoursDialog extends HookConsumerWidget {
-  const MinionHoursDialog._();
+  const MinionHoursDialog._({
+    required this.date,
+  });
 
-  static Future<MinionHoursState?> show(BuildContext context) {
+  final DateTime date;
+
+  static Future<MinionHoursState?> show(
+    BuildContext context, {
+    required DateTime date,
+  }) {
     return showShadDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const MinionHoursDialog._(),
+      builder: (context) => MinionHoursDialog._(date: date),
     );
   }
 
@@ -27,7 +34,11 @@ class MinionHoursDialog extends HookConsumerWidget {
 
     useEffect(
       () {
-        Future(ref.read(minionHoursEditControllerProvider.notifier).init);
+        Future(
+          () => ref
+              .read(minionHoursEditControllerProvider.notifier)
+              .onDateChanged(date),
+        );
         return null;
       },
       [],

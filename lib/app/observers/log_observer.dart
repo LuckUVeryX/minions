@@ -22,14 +22,21 @@ class LogObserver extends ProviderObserver {
   ) {
     final providerName = provider.name ?? provider.runtimeType.toString();
 
-    if (newValue is! AsyncValue) {
-      logger.d('[$providerName]\n$newValue');
-      return;
-    }
-
     switch (newValue) {
       case AsyncError(:final error, :final stackTrace):
         logger.e('[$providerName]', error: error, stackTrace: stackTrace);
+      default:
+        final value = switch (newValue) {
+          final Map<dynamic, dynamic> json => (() {
+              try {
+                return const JsonEncoder.withIndent('  ').convert(json);
+              } catch (_) {
+                return '$newValue';
+              }
+            }).call(),
+          _ => '$newValue',
+        };
+        logger.t('[$providerName]\n$value');
     }
   }
 }

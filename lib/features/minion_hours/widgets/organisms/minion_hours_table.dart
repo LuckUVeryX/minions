@@ -14,21 +14,25 @@ class MinionHoursTable extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final dateSelection = ref.watch(minionHoursDateRangeControllerProvider);
 
-    final provider = switch (dateSelection) {
-      (final date?, (null, null)) => minionHoursProvider(
-          start: date,
-          end: date.add(const Duration(days: 1)),
-        ),
-      (null, (final start?, final end?)) => minionHoursProvider(
-          start: start,
-          end: end,
-        ),
-      _ => null,
-    };
-    final value = switch (provider) {
-      final p? => ref.watch(p.select((value) => value.valueOrNull)),
-      _ => null,
-    };
+    final value = ref.watch(
+      minionHoursCalendarControllerProvider.select((data) {
+        final dates = switch (dateSelection) {
+          (final date?, (null, null)) => [date],
+          (null, (final start?, final end?)) => List.generate(
+              end.difference(start).inDays + 1,
+              (index) => start.add(Duration(days: index)),
+            ),
+          _ => <DateTime>[],
+        };
+        final values = <MinionHoursOutput>[];
+        for (final date in dates) {
+          final e = data[date];
+          if (e != null) values.addAll(e);
+        }
+
+        return values;
+      }),
+    );
 
     final headings = <String>[
       context.l10n.facility,
@@ -37,11 +41,11 @@ class MinionHoursTable extends HookConsumerWidget {
       context.l10n.hours,
     ];
 
-    final hasMultipleRows = value != null && value.length > 1;
+    final hasMultipleRows = value.length > 1;
 
     return ShadTable(
       columnCount: headings.length,
-      rowCount: value?.length ?? 0,
+      rowCount: value.length,
       columnSpanExtent: (index) {
         return switch (index) {
           1 => const FixedSpanExtent(100),
@@ -57,8 +61,6 @@ class MinionHoursTable extends HookConsumerWidget {
         );
       },
       builder: (context, vicinity) {
-        if (value == null) return const ShadTableCell(child: Offstage());
-
         final tableValues = value[vicinity.row].tableValues;
         return ShadTableCell(
           alignment: vicinity.column == tableValues.length - 1

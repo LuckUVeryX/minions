@@ -45,19 +45,6 @@ Facilities(
         .withConverter((data) => data.map(MinionHoursOutput.fromJson).toList());
   }
 
-  Future<List<MinionHoursOutput>> getDateRange({
-    required DateTime start,
-    required DateTime end,
-  }) {
-    return _client
-        .from(_table)
-        .select(_columns)
-        .gte('start', start.toIso8601String())
-        .lte('end', end.toIso8601String())
-        .order('start', ascending: false)
-        .withConverter((data) => data.map(MinionHoursOutput.fromJson).toList());
-  }
-
   Future<void> insert(MinionHoursInput value) {
     return _client.from(_table).insert(value.toJson());
   }

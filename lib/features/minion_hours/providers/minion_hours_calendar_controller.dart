@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:minions/app/app.dart';
 import 'package:minions/features/minion_hours/minion_hours.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -8,53 +9,43 @@ part 'minion_hours_calendar_controller.g.dart';
 
 @riverpod
 class MinionHoursCalendarController extends _$MinionHoursCalendarController {
-  /// (DateTime, isStale)
-  final _cached = LinkedHashMap<DateTime, bool>(
+  final _cached = LinkedHashSet<DateTime>(
     equals: isSameDay,
     hashCode: _hashCode,
   );
 
   @override
   LinkedHashMap<DateTime, Set<MinionHoursOutput>> build() {
-    for (final e in _cached.entries) {
-      _cached[e.key] = true;
-    }
-
     return LinkedHashMap(
       equals: isSameDay,
       hashCode: _hashCode,
     );
   }
 
-  Future<void> loadEvent(DateTime dt) async {
-    if (_cached.containsKey(dt) && !(_cached[dt] ?? true)) return;
-    _cached[dt] = false;
+  Future<void> loadEvent(DateTime dt, {bool force = false}) async {
+    final monthDate = dt.firstDayOfMonth();
+
+    if (force) return _loadEvent(monthDate);
+
+    if (_cached.contains(monthDate)) return;
+    return _loadEvent(monthDate);
+  }
+
+  Future<void> _loadEvent(DateTime dt) async {
+    _cached.add(dt);
 
     final repo = ref.read(minionHoursRepoProvider);
     final minionHours = await repo.getMonth(dt);
-    if (minionHours.isEmpty) return;
 
-    final copy = state.toMap();
+    final copy = LinkedHashMap<DateTime, Set<MinionHoursOutput>>(
+      equals: isSameDay,
+      hashCode: _hashCode,
+    );
     for (final element in minionHours) {
       final day = element.start.toDay();
       copy[day] = (copy[day] ?? {})..add(element);
     }
     state = copy;
-  }
-}
-
-extension on LinkedHashMap<DateTime, Set<MinionHoursOutput>> {
-  LinkedHashMap<DateTime, Set<MinionHoursOutput>> toMap() {
-    return LinkedHashMap(
-      equals: isSameDay,
-      hashCode: _hashCode,
-    )..addAll(this);
-  }
-}
-
-extension on DateTime {
-  DateTime toDay() {
-    return DateTime(year, month, day);
   }
 }
 

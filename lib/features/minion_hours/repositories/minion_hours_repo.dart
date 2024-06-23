@@ -50,10 +50,13 @@ Facilities(
   }
 
   Future<void> update(MinionHoursOutput value) {
-    return _client.from(_table).update(value.toJson()).eq('id', value.id);
+    return _client
+        .from(_table)
+        .update(value.toJson()..remove('Facilities'))
+        .eq('id', value.id);
   }
 
-  Future<void> delete(String id) {
+  Future<void> delete(int id) {
     return _client.from(_table).delete().eq('id', id);
   }
 }

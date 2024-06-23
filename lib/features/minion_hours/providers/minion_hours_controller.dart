@@ -15,7 +15,9 @@ class MinionHoursController extends _$MinionHoursController {
       return repo.insert(input);
     });
 
-    ref.invalidate(minionHoursCalendarControllerProvider);
+    return ref
+        .read(minionHoursCalendarControllerProvider.notifier)
+        .loadEvent(input.start, force: true);
   }
 
   Future<void> edit(MinionHoursOutput output) async {
@@ -25,16 +27,20 @@ class MinionHoursController extends _$MinionHoursController {
       return repo.update(output);
     });
 
-    ref.invalidate(minionHoursCalendarControllerProvider);
+    return ref
+        .read(minionHoursCalendarControllerProvider.notifier)
+        .loadEvent(output.start, force: true);
   }
 
-  Future<void> delete(String id) async {
+  Future<void> delete(MinionHoursOutput output) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final repo = ref.read(minionHoursRepoProvider);
-      return repo.delete(id);
+      return repo.delete(output.id);
     });
 
-    ref.invalidate(minionHoursCalendarControllerProvider);
+    return ref
+        .read(minionHoursCalendarControllerProvider.notifier)
+        .loadEvent(output.start, force: true);
   }
 }

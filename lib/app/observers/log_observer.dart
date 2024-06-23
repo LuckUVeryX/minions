@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
 
@@ -50,7 +51,13 @@ class ColorPrinter extends LogPrinter {
     final messageStr = _stringifyMessage(event.message);
     final errorStr = event.error != null ? ' ERROR: ${event.error}' : '';
     final color = levelColors[event.level]!;
-    return [color('$messageStr$errorStr')];
+    final lines = event.stackTrace?.toString().trimRight().split('\n');
+
+    return [
+      color('$messageStr$errorStr'),
+      if (lines != null)
+        color(FlutterError.defaultStackFilter(lines).join('\n')),
+    ];
   }
 
   String _stringifyMessage(dynamic message) {

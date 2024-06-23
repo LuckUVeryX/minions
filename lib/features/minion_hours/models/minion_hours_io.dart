@@ -83,6 +83,8 @@ class MinionHoursOutput with _$MinionHoursOutput {
 
   factory MinionHoursOutput.fromJson(Map<String, dynamic> json) =>
       _$MinionHoursOutputFromJson(json);
+
+  Duration get duration => end.difference(start);
 }
 
 extension on TimeOfDay {

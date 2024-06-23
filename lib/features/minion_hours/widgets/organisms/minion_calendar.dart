@@ -52,7 +52,7 @@ class MinionCalendar extends HookConsumerWidget {
       ),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 400),
-        child: TableCalendar<void>(
+        child: TableCalendar<MinionHoursOutput>(
           locale: 'en_SG',
           firstDay: DateTime(2023),
           lastDay: DateTime.now().add(const Duration(days: 365)),
@@ -81,6 +81,28 @@ class MinionCalendar extends HookConsumerWidget {
             ),
             selectedTextStyle: defaultTextStyle.copyWith(
               color: context.colorScheme.background,
+            ),
+            rangeStartDecoration: defaultDecoration.copyWith(
+              color: context.colorScheme.selection,
+            ),
+            rangeEndDecoration: defaultDecoration.copyWith(
+              color: context.colorScheme.selection,
+            ),
+            withinRangeDecoration: defaultDecoration,
+            rangeHighlightColor: context.colorScheme.selection.withOpacity(0.5),
+            rangeStartTextStyle: defaultTextStyle.copyWith(
+              color: context.colorScheme.background,
+            ),
+            rangeEndTextStyle: defaultTextStyle.copyWith(
+              color: context.colorScheme.background,
+            ),
+          ),
+          calendarBuilders: CalendarBuilders(
+            markerBuilder: (_, day, events) => MinionCalendarMarker(
+              events: events,
+              color: isSameDay(day, selectedDay)
+                  ? context.colorScheme.background
+                  : context.colorScheme.foreground,
             ),
           ),
           rangeStartDay: rangeStartDay,

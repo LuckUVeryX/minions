@@ -8,14 +8,18 @@ part 'minion_hours_calendar_controller.g.dart';
 
 @riverpod
 class MinionHoursCalendarController extends _$MinionHoursCalendarController {
-  final _cached = LinkedHashSet<DateTime>(
+  /// (DateTime, isStale)
+  final _cached = LinkedHashMap<DateTime, bool>(
     equals: isSameDay,
     hashCode: _hashCode,
   );
 
   @override
   LinkedHashMap<DateTime, Set<MinionHoursOutput>> build() {
-    _cached.clear();
+    for (final e in _cached.entries) {
+      _cached[e.key] = true;
+    }
+
     return LinkedHashMap(
       equals: isSameDay,
       hashCode: _hashCode,
@@ -23,8 +27,8 @@ class MinionHoursCalendarController extends _$MinionHoursCalendarController {
   }
 
   Future<void> loadEvent(DateTime dt) async {
-    if (_cached.contains(dt)) return;
-    _cached.add(dt);
+    if (_cached.containsKey(dt) && !(_cached[dt] ?? true)) return;
+    _cached[dt] = false;
 
     final repo = ref.read(minionHoursRepoProvider);
     final minionHours = await repo.getMonth(dt);

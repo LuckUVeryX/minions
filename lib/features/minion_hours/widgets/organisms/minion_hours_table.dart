@@ -30,7 +30,7 @@ class MinionHoursTable extends HookConsumerWidget {
           if (e != null) values.addAll(e);
         }
 
-        return values;
+        return values..sort((a, b) => a.start.compareTo(b.start));
       }),
     );
 

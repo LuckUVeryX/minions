@@ -29,7 +29,7 @@ Map<String, dynamic> _$$MinionHoursInputImplToJson(
 _$MinionHoursOutputImpl _$$MinionHoursOutputImplFromJson(
         Map<String, dynamic> json) =>
     _$MinionHoursOutputImpl(
-      id: json['id'] as String,
+      id: (json['id'] as num).toInt(),
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
       userId: json['user_id'] as String,
@@ -37,6 +37,7 @@ _$MinionHoursOutputImpl _$$MinionHoursOutputImplFromJson(
       start: DateTime.parse(json['start'] as String),
       end: DateTime.parse(json['end'] as String),
       lunchBreak: json['lunch_break'] as bool,
+      facility: Facility.fromJson(json['Facilities'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$MinionHoursOutputImplToJson(
@@ -50,4 +51,5 @@ Map<String, dynamic> _$$MinionHoursOutputImplToJson(
       'start': instance.start.toIso8601String(),
       'end': instance.end.toIso8601String(),
       'lunch_break': instance.lunchBreak,
+      'Facilities': instance.facility.toJson(),
     };

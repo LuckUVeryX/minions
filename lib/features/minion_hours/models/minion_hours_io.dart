@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:minions/app/utils/time_of_day_extensions.dart';
+import 'package:minions/app/app.dart';
 import 'package:minions/features/facilities/facilities.dart';
 
 part 'minion_hours_io.freezed.dart';
@@ -9,7 +9,7 @@ part 'minion_hours_io.g.dart';
 @freezed
 class MinionHoursState with _$MinionHoursState {
   const factory MinionHoursState({
-    String? id,
+    int? id,
     Facility? facility,
     DateTime? date,
     TimeOfDay? startTime,
@@ -68,7 +68,7 @@ class MinionHoursInput with _$MinionHoursInput {
 @freezed
 class MinionHoursOutput with _$MinionHoursOutput {
   const factory MinionHoursOutput({
-    required String id,
+    required int id,
     required DateTime createdAt,
     required DateTime updatedAt,
     required String userId,
@@ -76,6 +76,7 @@ class MinionHoursOutput with _$MinionHoursOutput {
     required DateTime start,
     required DateTime end,
     required bool lunchBreak,
+    @JsonKey(name: 'Facilities') required Facility facility,
   }) = _MinionHoursOutput;
 
   const MinionHoursOutput._();

@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
 
 final logger = Logger(
   printer: ColorPrinter(),
+  output: ConsoleLogOutput(),
 );
 
 class LogObserver extends ProviderObserver {
@@ -25,8 +28,8 @@ class LogObserver extends ProviderObserver {
     }
 
     switch (newValue) {
-      case AsyncError(:final error):
-        logger.e('[$providerName]', error: error);
+      case AsyncError(:final error, :final stackTrace):
+        logger.e('[$providerName]', error: error, stackTrace: stackTrace);
     }
   }
 }
@@ -48,7 +51,13 @@ class ColorPrinter extends LogPrinter {
     final messageStr = _stringifyMessage(event.message);
     final errorStr = event.error != null ? ' ERROR: ${event.error}' : '';
     final color = levelColors[event.level]!;
-    return [color('$messageStr$errorStr')];
+    final lines = event.stackTrace?.toString().trimRight().split('\n');
+
+    return [
+      color('$messageStr$errorStr'),
+      if (lines != null)
+        color(FlutterError.defaultStackFilter(lines).join('\n')),
+    ];
   }
 
   String _stringifyMessage(dynamic message) {
@@ -60,5 +69,12 @@ class ColorPrinter extends LogPrinter {
     } else {
       return finalMessage.toString();
     }
+  }
+}
+
+class ConsoleLogOutput extends LogOutput {
+  @override
+  void output(OutputEvent event) {
+    event.lines.forEach(log);
   }
 }

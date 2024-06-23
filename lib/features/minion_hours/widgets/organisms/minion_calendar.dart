@@ -22,19 +22,17 @@ class MinionCalendar extends HookConsumerWidget {
 
     final events = ref.watch(minionHoursCalendarControllerProvider);
 
+    Future<void> loadEvent() async {
+      final notifier = ref.read(minionHoursCalendarControllerProvider.notifier);
+      return notifier.loadEvent(focusedDay.value);
+    }
+
+    ref.listen(minionHoursCalendarControllerProvider, (_, __) => loadEvent());
+
     useEffect(
       () {
-        Future<void> listener() async {
-          final notifier =
-              ref.read(minionHoursCalendarControllerProvider.notifier);
-          return notifier.loadEvent(focusedDay.value);
-        }
-
-        // Trigger load event on first render
-        listener();
-
-        focusedDay.addListener(listener);
-        return () => focusedDay.removeListener(listener);
+        loadEvent.call();
+        return null;
       },
       [],
     );
@@ -115,7 +113,7 @@ class MinionCalendar extends HookConsumerWidget {
             final notifier = ref.read(
               minionHoursCalendarControllerProvider.notifier,
             );
-            return notifier.loadEvent(day);
+            return notifier.loadEvent(focusedDay.value);
           },
           onDaySelected: (selectDay, focusDay) {
             if (isSameDay(selectedDay, selectDay)) return;
@@ -132,7 +130,9 @@ class MinionCalendar extends HookConsumerWidget {
             final notifier = ref.read(
               minionHoursDateRangeControllerProvider.notifier,
             );
-            return notifier.onRangeChanged((start, end));
+            return notifier.onRangeChanged(
+              (start, end?.dayEnd()),
+            );
           },
           onHeaderLongPressed: (_) {
             // Return back to current day
@@ -148,5 +148,9 @@ class MinionCalendar extends HookConsumerWidget {
 extension on DateTime {
   DateTime firstDayOfMonth() {
     return DateTime(year, month);
+  }
+
+  DateTime dayEnd() {
+    return DateTime(year, month, day, 23, 59, 59, 999, 999);
   }
 }

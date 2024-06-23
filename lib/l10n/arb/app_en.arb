@@ -1,9 +1,5 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    },
     "authLogin": "Login",
     "authEmail": "Email",
     "authEmailPlaceholder": "alice@evolve-minions.com",
@@ -19,5 +15,10 @@
     "lunchBreak": "Lunch Break",
     "lunchBreakDesc": "1 hour will be deducted from total slaved hours.",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "facility": "Facility",
+    "date": "Date",
+    "time": "Time",
+    "hours": "Hours",
+    "total": "Total"
 }

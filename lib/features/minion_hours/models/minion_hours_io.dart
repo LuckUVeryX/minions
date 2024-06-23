@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 import 'package:minions/app/app.dart';
 import 'package:minions/features/facilities/facilities.dart';
 
@@ -84,7 +85,18 @@ class MinionHoursOutput with _$MinionHoursOutput {
   factory MinionHoursOutput.fromJson(Map<String, dynamic> json) =>
       _$MinionHoursOutputFromJson(json);
 
-  Duration get duration => end.difference(start);
+  List<String> get tableValues {
+    return [
+      facility.shortName,
+      DateFormat('dd/MM/yy').format(start),
+      '${DateFormat.Hm().format(start)} - ${DateFormat.Hm().format(end)}',
+      duration.toHm(),
+    ];
+  }
+
+  Duration get duration {
+    return end.difference(start) - Duration(hours: lunchBreak ? 1 : 0);
+  }
 }
 
 extension on TimeOfDay {

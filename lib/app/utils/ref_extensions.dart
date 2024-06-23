@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:minions/app/app.dart';
@@ -23,5 +25,25 @@ extension WidgetRefX on WidgetRef {
         },
       ),
     );
+  }
+}
+
+extension AutoDisposeRefX<T> on AutoDisposeRef<T> {
+  void cache([Duration duration = const Duration(seconds: 30)]) {
+    Timer? timer;
+    final link = keepAlive();
+
+    onCancel(() {
+      timer?.cancel();
+      timer = Timer(duration, link.close);
+    });
+
+    onDispose(() {
+      timer?.cancel();
+    });
+
+    onResume(() {
+      timer?.cancel();
+    });
   }
 }

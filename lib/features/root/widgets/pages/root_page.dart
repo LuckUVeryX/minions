@@ -10,8 +10,8 @@ class RootPage extends HookConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(width: double.infinity),
             MinionCalendar(),
+            Expanded(child: MinionHoursTable()),
           ],
         ),
       ),

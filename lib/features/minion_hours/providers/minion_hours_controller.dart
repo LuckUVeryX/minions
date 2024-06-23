@@ -14,6 +14,8 @@ class MinionHoursController extends _$MinionHoursController {
       final repo = ref.read(minionHoursRepoProvider);
       return repo.insert(input);
     });
+
+    ref.invalidate(minionHoursCalendarControllerProvider);
   }
 
   Future<void> edit(MinionHoursOutput output) async {
@@ -22,6 +24,8 @@ class MinionHoursController extends _$MinionHoursController {
       final repo = ref.read(minionHoursRepoProvider);
       return repo.update(output);
     });
+
+    ref.invalidate(minionHoursCalendarControllerProvider);
   }
 
   Future<void> delete(String id) async {
@@ -30,5 +34,7 @@ class MinionHoursController extends _$MinionHoursController {
       final repo = ref.read(minionHoursRepoProvider);
       return repo.delete(id);
     });
+
+    ref.invalidate(minionHoursCalendarControllerProvider);
   }
 }

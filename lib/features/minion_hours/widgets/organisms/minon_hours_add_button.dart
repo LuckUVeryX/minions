@@ -14,12 +14,24 @@ class MinonHoursAddButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listenError(minionHoursControllerProvider);
 
+    final selectedDate = ref.watch(
+      minionHoursDateRangeControllerProvider.select(
+        (value) {
+          return switch (value) {
+            (final date?, (null, null)) => date,
+            (null, (final start?, final _)) => start,
+            _ => DateTime.now(),
+          };
+        },
+      ),
+    );
+
     return FloatingActionButton(
       child: const Icon(LucideIcons.plus),
       onPressed: () async {
         final notifier = ref.read(minionHoursControllerProvider.notifier);
 
-        final state = await MinionHoursDialog.show(context);
+        final state = await MinionHoursDialog.show(context, date: selectedDate);
         if (state == null || !state.isValid()) return;
 
         final user = ref.read(userProvider);

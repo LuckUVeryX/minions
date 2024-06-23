@@ -13,10 +13,6 @@ class MinionHoursEditController extends _$MinionHoursEditController {
     return const MinionHoursState();
   }
 
-  void init() {
-    state = state.copyWith(date: DateTime.now());
-  }
-
   void onFacilityChanged(Facility value) {
     state = state.copyWith(facility: value);
   }

@@ -9,7 +9,7 @@ part 'minion_hours_io.g.dart';
 @freezed
 class MinionHoursState with _$MinionHoursState {
   const factory MinionHoursState({
-    String? id,
+    int? id,
     Facility? facility,
     DateTime? date,
     TimeOfDay? startTime,
@@ -68,7 +68,7 @@ class MinionHoursInput with _$MinionHoursInput {
 @freezed
 class MinionHoursOutput with _$MinionHoursOutput {
   const factory MinionHoursOutput({
-    required String id,
+    required int id,
     required DateTime createdAt,
     required DateTime updatedAt,
     required String userId,

@@ -29,7 +29,7 @@ Map<String, dynamic> _$$MinionHoursInputImplToJson(
 _$MinionHoursOutputImpl _$$MinionHoursOutputImplFromJson(
         Map<String, dynamic> json) =>
     _$MinionHoursOutputImpl(
-      id: json['id'] as String,
+      id: (json['id'] as num).toInt(),
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
       userId: json['user_id'] as String,

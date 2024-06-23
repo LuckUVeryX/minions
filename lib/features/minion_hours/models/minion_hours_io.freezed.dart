@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MinionHoursState {
-  String? get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   Facility? get facility => throw _privateConstructorUsedError;
   DateTime? get date => throw _privateConstructorUsedError;
   TimeOfDay? get startTime => throw _privateConstructorUsedError;
@@ -35,7 +35,7 @@ abstract class $MinionHoursStateCopyWith<$Res> {
       _$MinionHoursStateCopyWithImpl<$Res, MinionHoursState>;
   @useResult
   $Res call(
-      {String? id,
+      {int? id,
       Facility? facility,
       DateTime? date,
       TimeOfDay? startTime,
@@ -69,7 +69,7 @@ class _$MinionHoursStateCopyWithImpl<$Res, $Val extends MinionHoursState>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       facility: freezed == facility
           ? _value.facility
           : facility // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$MinionHoursStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
+      {int? id,
       Facility? facility,
       DateTime? date,
       TimeOfDay? startTime,
@@ -148,7 +148,7 @@ class __$$MinionHoursStateImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       facility: freezed == facility
           ? _value.facility
           : facility // ignore: cast_nullable_to_non_nullable
@@ -186,7 +186,7 @@ class _$MinionHoursStateImpl extends _MinionHoursState {
       : super._();
 
   @override
-  final String? id;
+  final int? id;
   @override
   final Facility? facility;
   @override
@@ -234,7 +234,7 @@ class _$MinionHoursStateImpl extends _MinionHoursState {
 
 abstract class _MinionHoursState extends MinionHoursState {
   const factory _MinionHoursState(
-      {final String? id,
+      {final int? id,
       final Facility? facility,
       final DateTime? date,
       final TimeOfDay? startTime,
@@ -243,7 +243,7 @@ abstract class _MinionHoursState extends MinionHoursState {
   const _MinionHoursState._() : super._();
 
   @override
-  String? get id;
+  int? get id;
   @override
   Facility? get facility;
   @override
@@ -492,7 +492,7 @@ MinionHoursOutput _$MinionHoursOutputFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MinionHoursOutput {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
@@ -514,7 +514,7 @@ abstract class $MinionHoursOutputCopyWith<$Res> {
       _$MinionHoursOutputCopyWithImpl<$Res, MinionHoursOutput>;
   @useResult
   $Res call(
-      {String id,
+      {int id,
       DateTime createdAt,
       DateTime updatedAt,
       String userId,
@@ -550,7 +550,7 @@ class _$MinionHoursOutputCopyWithImpl<$Res, $Val extends MinionHoursOutput>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -592,7 +592,7 @@ abstract class _$$MinionHoursOutputImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {int id,
       DateTime createdAt,
       DateTime updatedAt,
       String userId,
@@ -626,7 +626,7 @@ class __$$MinionHoursOutputImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -677,7 +677,7 @@ class _$MinionHoursOutputImpl extends _MinionHoursOutput {
       _$$MinionHoursOutputImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
   final DateTime createdAt;
   @override
@@ -739,7 +739,7 @@ class _$MinionHoursOutputImpl extends _MinionHoursOutput {
 
 abstract class _MinionHoursOutput extends MinionHoursOutput {
   const factory _MinionHoursOutput(
-      {required final String id,
+      {required final int id,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final String userId,
@@ -753,7 +753,7 @@ abstract class _MinionHoursOutput extends MinionHoursOutput {
       _$MinionHoursOutputImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   DateTime get createdAt;
   @override

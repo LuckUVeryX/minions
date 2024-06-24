@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:minions/app/app.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -14,11 +15,13 @@ class AuthRepo {
 
   final SupabaseClient _client;
 
-  Future<void> signInEmailPassword({
-    required String email,
-    required String password,
-  }) {
-    return _client.auth.signInWithPassword(email: email, password: password);
+  static const _redirectUrl = 'com.luckuveryx.minions://login-callback/';
+
+  Future<void> signInEmail({required String email}) {
+    return _client.auth.signInWithOtp(
+      email: email,
+      emailRedirectTo: kIsWeb ? null : _redirectUrl,
+    );
   }
 
   Future<void> signOut() {

@@ -11,6 +11,14 @@ class RootPage extends HookConsumerWidget {
       // Load Facilities
     });
 
+    // useEffect(
+    //   () {
+    //     Supabase.instance.client.auth.signOut();
+    //     return null;
+    //   },
+    //   [],
+    // );
+
     return const Scaffold(
       body: SafeArea(
         child: Column(

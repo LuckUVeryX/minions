@@ -49,4 +49,5 @@ flutter_launcher_icons:
   remove_alpha_ios: true
   web:
     generate: true
-    image_path: "assets/icon/icon.png"
+    image_path: "assets/icon.png"
+

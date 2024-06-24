@@ -16,14 +16,21 @@ class AuthForm extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
 
-    ref.listen(authControllerProvider, (_, value) {
-      value.whenOrNull(
+    ref.listen(authControllerProvider, (prev, next) {
+      next.whenOrNull(
         error: (error, stackTrace) {
           final message = switch (error) {
             AuthException(:final message) => message,
             _ => error.toString(),
           };
           context.toaster.show(ShadToast.destructive(title: Text(message)));
+        },
+        data: (_) {
+          final prevLoading = prev?.isLoading ?? false;
+          if (!prevLoading) return;
+          context.toaster.show(
+            ShadToast(title: Text(context.l10n.authEmailSent)),
+          );
         },
       );
     });

@@ -8,14 +8,13 @@ class AuthController extends _$AuthController {
   @override
   FutureOr<void> build() {}
 
-  Future<void> signInEmailPassword({
+  Future<void> signInEmail({
     required String email,
-    required String password,
   }) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final repo = ref.read(authRepoProvider);
-      return repo.signInEmailPassword(email: email, password: password);
+      return repo.signInEmail(email: email);
     });
   }
 

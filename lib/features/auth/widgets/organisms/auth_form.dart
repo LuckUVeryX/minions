@@ -15,7 +15,6 @@ class AuthForm extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
 
     ref.listen(authControllerProvider, (_, value) {
       value.whenOrNull(
@@ -28,14 +27,6 @@ class AuthForm extends HookConsumerWidget {
         },
       );
     });
-
-    Future<void> signInEmailPassword() async {
-      final notifier = ref.read(authControllerProvider.notifier);
-      await notifier.signInEmailPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-    }
 
     return AutofillGroup(
       child: Padding(
@@ -56,14 +47,12 @@ class AuthForm extends HookConsumerWidget {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
               ),
-              ShadInputFormField(
-                label: Text(context.l10n.authPassword),
-                controller: passwordController,
-                obscureText: true,
-                textInputAction: TextInputAction.go,
-                onSubmitted: (_) => signInEmailPassword(),
+              SignInButton(
+                onPressed: () async {
+                  final notifier = ref.read(authControllerProvider.notifier);
+                  return notifier.signInEmail(email: emailController.text);
+                },
               ),
-              SignInButton(onPressed: signInEmailPassword),
             ].insertBetween(Spacing.sp4),
           ],
         ),

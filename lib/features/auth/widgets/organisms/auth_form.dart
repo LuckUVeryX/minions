@@ -31,6 +31,7 @@ class AuthForm extends HookConsumerWidget {
         data: (_) {
           final prevLoading = prev?.isLoading ?? false;
           if (!prevLoading) return;
+          if (emailController.text == _testEmail) return;
           context.toaster.show(
             ShadToast(title: Text(context.l10n.authEmailSent)),
           );

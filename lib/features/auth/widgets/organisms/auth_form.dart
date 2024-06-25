@@ -12,9 +12,12 @@ class AuthForm extends HookConsumerWidget {
     super.key,
   });
 
+  static const _testEmail = 'test@evolve-minions.com';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
 
     ref.listen(authControllerProvider, (prev, next) {
       next.whenOrNull(
@@ -35,6 +38,14 @@ class AuthForm extends HookConsumerWidget {
       );
     });
 
+    Future<void> signInEmailPassword() async {
+      final notifier = ref.read(authControllerProvider.notifier);
+      await notifier.signInEmailPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    }
+
     return AutofillGroup(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -54,8 +65,28 @@ class AuthForm extends HookConsumerWidget {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
               ),
+              ListenableBuilder(
+                listenable: emailController,
+                builder: (context, child) {
+                  if (emailController.text == _testEmail) {
+                    return const Offstage();
+                  }
+
+                  return ShadInputFormField(
+                    label: Text(context.l10n.authPassword),
+                    controller: passwordController,
+                    obscureText: true,
+                    textInputAction: TextInputAction.go,
+                    onSubmitted: (_) => signInEmailPassword(),
+                  );
+                },
+              ),
               SignInButton(
                 onPressed: () async {
+                  if (emailController.text == _testEmail) {
+                    return signInEmailPassword();
+                  }
+
                   final notifier = ref.read(authControllerProvider.notifier);
                   return notifier.signInEmail(email: emailController.text);
                 },

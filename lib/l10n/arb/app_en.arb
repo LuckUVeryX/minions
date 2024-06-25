@@ -2,6 +2,7 @@
     "@@locale": "en",
     "authLogin": "Login",
     "authEmail": "Email",
+    "authPassword": "Password",
     "authEmailPlaceholder": "alice@evolve-minions.com",
     "authEmailRequired": "Email is required",
     "authLoginDesc": "Enter your email below to login to your account.",

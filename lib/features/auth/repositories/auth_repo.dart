@@ -24,6 +24,16 @@ class AuthRepo {
     );
   }
 
+  Future<void> signInEmailPassword({
+    required String email,
+    required String password,
+  }) {
+    return _client.auth.signInWithPassword(
+      email: email,
+      password: password,
+    );
+  }
+
   Future<void> signOut() {
     return _client.auth.signOut();
   }

@@ -18,6 +18,17 @@ class AuthController extends _$AuthController {
     });
   }
 
+  Future<void> signInEmailPassword({
+    required String email,
+    required String password,
+  }) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final repo = ref.read(authRepoProvider);
+      return repo.signInEmailPassword(email: email, password: password);
+    });
+  }
+
   Future<void> signOut() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {

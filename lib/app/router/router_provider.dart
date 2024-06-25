@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:minions/app/app.dart';
 import 'package:minions/features/auth/auth.dart';
+import 'package:posthog_flutter/posthog_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'router_provider.g.dart';
@@ -20,6 +21,7 @@ GoRouter router(RouterRef ref) {
     );
 
   final router = GoRouter(
+    observers: [PosthogObserver()],
     navigatorKey: routerKey,
     refreshListenable: isAuth,
     initialLocation: const SplashRoute().location,

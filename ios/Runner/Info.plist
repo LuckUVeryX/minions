@@ -66,5 +66,13 @@
 		<false/>
 		<key>ITSAppUsesNonExemptEncryption</key>
 		<false/>
+		<key>com.posthog.posthog.API_KEY</key>
+		<string>phc_WuuZgCDPJRJCGXCwLKq24At2ys9IzYvnevAmkxIuqCA</string>
+		<key>com.posthog.posthog.POSTHOG_HOST</key>
+		<string>https://us.i.posthog.com</string>
+		<key>com.posthog.posthog.CAPTURE_APPLICATION_LIFECYCLE_EVENTS</key>
+		<true/>
+		<key>com.posthog.posthog.DEBUG</key>
+	  <true/>
 	</dict>
 </plist>

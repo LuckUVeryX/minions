@@ -68,7 +68,7 @@ class AuthForm extends HookConsumerWidget {
               ListenableBuilder(
                 listenable: emailController,
                 builder: (context, child) {
-                  if (emailController.text == _testEmail) {
+                  if (emailController.text != _testEmail) {
                     return const Offstage();
                   }
 
@@ -83,7 +83,7 @@ class AuthForm extends HookConsumerWidget {
               ),
               SignInButton(
                 onPressed: () async {
-                  if (emailController.text == _testEmail) {
+                  if (emailController.text != _testEmail) {
                     return signInEmailPassword();
                   }
 

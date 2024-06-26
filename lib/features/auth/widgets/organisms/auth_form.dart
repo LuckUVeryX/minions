@@ -84,7 +84,7 @@ class AuthForm extends HookConsumerWidget {
               ),
               SignInButton(
                 onPressed: () async {
-                  if (emailController.text != _testEmail) {
+                  if (emailController.text == _testEmail) {
                     return signInEmailPassword();
                   }
 

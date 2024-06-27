@@ -16,7 +16,13 @@ Stream<AuthState> authStatus(AuthStatusRef ref) async* {
         case AuthChangeEvent.signedIn:
           final id = state.session?.user.id;
           if (id == null) break;
-          Posthog().identify(userId: id);
+          final email = state.session?.user.email;
+          Posthog().identify(
+            userId: id,
+            userProperties: {
+              if (email != null) 'email': email,
+            },
+          );
         case AuthChangeEvent.signedOut:
           Posthog().reset();
         case AuthChangeEvent.passwordRecovery:

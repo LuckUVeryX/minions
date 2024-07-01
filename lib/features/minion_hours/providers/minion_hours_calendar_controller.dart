@@ -7,6 +7,8 @@ import 'package:table_calendar/table_calendar.dart';
 
 part 'minion_hours_calendar_controller.g.dart';
 
+typedef CalendarHashMap = LinkedHashMap<DateTime, Set<MinionHoursOutput>>;
+
 @riverpod
 class MinionHoursCalendarController extends _$MinionHoursCalendarController {
   final _cached = LinkedHashSet<DateTime>(
@@ -15,7 +17,7 @@ class MinionHoursCalendarController extends _$MinionHoursCalendarController {
   );
 
   @override
-  LinkedHashMap<DateTime, Set<MinionHoursOutput>> build() {
+  CalendarHashMap build() {
     return LinkedHashMap(
       equals: isSameDay,
       hashCode: _hashCode,
@@ -37,10 +39,7 @@ class MinionHoursCalendarController extends _$MinionHoursCalendarController {
     final repo = ref.read(minionHoursRepoProvider);
     final minionHours = await repo.getMonth(dt);
 
-    final copy = LinkedHashMap<DateTime, Set<MinionHoursOutput>>(
-      equals: isSameDay,
-      hashCode: _hashCode,
-    );
+    final copy = state.copy();
     for (final element in minionHours) {
       final day = element.start.toDay();
       copy[day] = (copy[day] ?? {})..add(element);
@@ -51,4 +50,15 @@ class MinionHoursCalendarController extends _$MinionHoursCalendarController {
 
 int _hashCode(DateTime dt) {
   return dt.day * 1000000 + dt.month * 10000 + dt.year;
+}
+
+extension on CalendarHashMap {
+  CalendarHashMap copy() {
+    final copy = CalendarHashMap(
+      equals: isSameDay,
+      hashCode: _hashCode,
+    );
+    forEach((k, v) => copy[k] = v);
+    return copy;
+  }
 }

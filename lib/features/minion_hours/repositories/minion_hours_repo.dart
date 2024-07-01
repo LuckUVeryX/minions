@@ -35,8 +35,11 @@ Facilities(
 )''';
 
   Future<List<MinionHoursOutput>> getMonth(DateTime dt) {
-    final start = DateTime(dt.year, dt.month);
-    final end = DateTime(dt.year, dt.month + 1);
+    final start = DateTime(dt.year, dt.month)
+        .subtract(const Duration(days: DateTime.daysPerWeek));
+    final end = DateTime(dt.year, dt.month + 1)
+        .add(const Duration(days: DateTime.daysPerWeek));
+
     return _client
         .from(_table)
         .select(_columns)

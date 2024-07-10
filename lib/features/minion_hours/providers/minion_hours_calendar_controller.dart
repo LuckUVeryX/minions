@@ -37,9 +37,18 @@ class MinionHoursCalendarController extends _$MinionHoursCalendarController {
     _cached.add(dt);
 
     final repo = ref.read(minionHoursRepoProvider);
-    final minionHours = await repo.getMonth(dt);
+    final start = dt.subtract(const Duration(days: DateTime.daysPerWeek));
+    final end = dt.add(const Duration(days: DateTime.daysPerWeek));
+    final minionHours = await repo.getRange(start, end);
 
     final copy = state.copy();
+
+    var currentDay = start;
+    while (currentDay.isBefore(end) || currentDay.isAtSameMomentAs(end)) {
+      copy[currentDay] = {};
+      currentDay = currentDay.add(const Duration(days: 1));
+    }
+
     for (final element in minionHours) {
       final day = element.start.toDay();
       copy[day] = (copy[day] ?? {})..add(element);

@@ -39,6 +39,7 @@ class MinionCalendarMarker extends StatelessWidget {
             child: CircularProgressIndicator(
               strokeWidth: 1,
               value: totalMins / 60,
+              color: color,
             ),
           ),
         ),

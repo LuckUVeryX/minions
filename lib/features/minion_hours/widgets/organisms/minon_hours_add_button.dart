@@ -31,7 +31,7 @@ class MinonHoursAddButton extends HookConsumerWidget {
       onPressed: () async {
         final notifier = ref.read(minionHoursControllerProvider.notifier);
 
-        final state = await MinionHoursDialog.show(context, date: selectedDate);
+        final state = await MinionHoursDialog.add(context, date: selectedDate);
         if (state == null || !state.isValid()) return;
 
         final user = ref.read(userProvider);

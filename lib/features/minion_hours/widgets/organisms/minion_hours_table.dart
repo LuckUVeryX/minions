@@ -166,9 +166,8 @@ class MinionHoursEditButton extends HookConsumerWidget {
 
                   final notifier =
                       ref.read(minionHoursControllerProvider.notifier);
-                  final state = await MinionHoursDialog.show(
+                  final state = await MinionHoursDialog.edit(
                     context,
-                    date: data.period.start,
                     data: data,
                   );
                   if (state == null || !state.isValid()) return;

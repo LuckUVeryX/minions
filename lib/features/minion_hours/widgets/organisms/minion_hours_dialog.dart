@@ -38,7 +38,7 @@ class MinionHoursDialog extends HookConsumerWidget {
     useEffect(
       () {
         final notifier = ref.read(minionHoursEditControllerProvider.notifier);
-        Future(() => notifier.onDateChanged(data?.start ?? date));
+        Future(() => notifier.onDateChanged(data?.period.start ?? date));
         if (data != null) {
           Future(() => notifier.onChanged(data!));
         }

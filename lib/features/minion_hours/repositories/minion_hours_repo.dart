@@ -19,13 +19,12 @@ class MinionHoursRepo {
 
   static const _columns = '''
 id,
-created_at,
-updated_at,
 user_id,
 facility_id,
-start,
-end,
+period,
 lunch_break,
+created_at,
+updated_at,
 Facilities(
   id,
   name,
@@ -35,12 +34,9 @@ Facilities(
 )''';
 
   Future<List<MinionHoursOutput>> getRange(DateTime start, DateTime end) {
-    return _client
-        .from(_table)
-        .select(_columns)
-        .gte('start', start.toIso8601String())
-        .lte('end', end.toIso8601String())
-        .withConverter((data) => data.map(MinionHoursOutput.fromJson).toList());
+    return _client.from(_table).select(_columns).withConverter((data) {
+      return data.map(MinionHoursOutput.fromJson).toList();
+    });
   }
 
   Future<void> insert(MinionHoursInput value) {

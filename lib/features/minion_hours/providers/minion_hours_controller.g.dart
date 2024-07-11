@@ -7,7 +7,7 @@ part of 'minion_hours_controller.dart';
 // **************************************************************************
 
 String _$minionHoursControllerHash() =>
-    r'e082445c4300fc081193e4781c138acd389a65f8';
+    r'c6ba9a9abe629af4c609b50812271c1087d8aaad';
 
 /// See also [MinionHoursController].
 @ProviderFor(MinionHoursController)

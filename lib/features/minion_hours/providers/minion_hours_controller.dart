@@ -17,7 +17,7 @@ class MinionHoursController extends _$MinionHoursController {
 
     return ref
         .read(minionHoursCalendarControllerProvider.notifier)
-        .loadEvent(input.start, force: true);
+        .loadEvent(input.period.start, force: true);
   }
 
   Future<void> edit(MinionHoursOutput output) async {
@@ -29,7 +29,7 @@ class MinionHoursController extends _$MinionHoursController {
 
     return ref
         .read(minionHoursCalendarControllerProvider.notifier)
-        .loadEvent(output.start, force: true);
+        .loadEvent(output.period.start, force: true);
   }
 
   Future<void> delete(MinionHoursOutput output) async {
@@ -41,6 +41,6 @@ class MinionHoursController extends _$MinionHoursController {
 
     return ref
         .read(minionHoursCalendarControllerProvider.notifier)
-        .loadEvent(output.start, force: true);
+        .loadEvent(output.period.start, force: true);
   }
 }

@@ -7,13 +7,12 @@ part of 'minion_hours_calendar_controller.dart';
 // **************************************************************************
 
 String _$minionHoursCalendarControllerHash() =>
-    r'4f8e49efef9e8627218f851d4d98a0ae79116b55';
+    r'47be6e8f64cff21f80c0ed9e6e9c598efcf6eba0';
 
 /// See also [MinionHoursCalendarController].
 @ProviderFor(MinionHoursCalendarController)
 final minionHoursCalendarControllerProvider = AutoDisposeNotifierProvider<
-    MinionHoursCalendarController,
-    LinkedHashMap<DateTime, Set<MinionHoursOutput>>>.internal(
+    MinionHoursCalendarController, CalendarHashMap>.internal(
   MinionHoursCalendarController.new,
   name: r'minionHoursCalendarControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,7 +22,6 @@ final minionHoursCalendarControllerProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$MinionHoursCalendarController
-    = AutoDisposeNotifier<LinkedHashMap<DateTime, Set<MinionHoursOutput>>>;
+typedef _$MinionHoursCalendarController = AutoDisposeNotifier<CalendarHashMap>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

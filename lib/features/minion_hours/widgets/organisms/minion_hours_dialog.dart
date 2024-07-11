@@ -15,18 +15,31 @@ class MinionHoursDialog extends HookConsumerWidget {
     required this.data,
   });
 
-  final MinionHoursOutput? data;
   final DateTime date;
+  final MinionHoursOutput? data;
 
-  static Future<MinionHoursState?> show(
+  static Future<MinionHoursState?> add(
     BuildContext context, {
     required DateTime date,
-    MinionHoursOutput? data,
   }) {
     return showShadDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => MinionHoursDialog._(date: date, data: data),
+      builder: (context) => MinionHoursDialog._(date: date, data: null),
+    );
+  }
+
+  static Future<MinionHoursState?> edit(
+    BuildContext context, {
+    required MinionHoursOutput data,
+  }) {
+    return showShadDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => MinionHoursDialog._(
+        date: data.period.start,
+        data: data,
+      ),
     );
   }
 
@@ -38,7 +51,7 @@ class MinionHoursDialog extends HookConsumerWidget {
     useEffect(
       () {
         final notifier = ref.read(minionHoursEditControllerProvider.notifier);
-        Future(() => notifier.onDateChanged(data?.start ?? date));
+        Future(() => notifier.onDateChanged(data?.period.start ?? date));
         if (data != null) {
           Future(() => notifier.onChanged(data!));
         }

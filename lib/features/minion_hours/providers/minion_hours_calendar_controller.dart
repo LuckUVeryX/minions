@@ -51,7 +51,7 @@ class MinionHoursCalendarController extends _$MinionHoursCalendarController {
     }
 
     for (final element in minionHours) {
-      final day = element.start.toDay();
+      final day = element.period.start.toDay();
       copy[day] = (copy[day] ?? {})..add(element);
     }
     state = copy;

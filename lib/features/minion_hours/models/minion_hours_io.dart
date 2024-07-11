@@ -37,8 +37,7 @@ class MinionHoursInput with _$MinionHoursInput {
   const factory MinionHoursInput({
     required String userId,
     required String facilityId,
-    required DateTime start,
-    required DateTime end,
+    @_MinionHoursPeriodConverter() required MinionHoursPeriod period,
     required bool lunchBreak,
   }) = _MinionHoursInput;
 
@@ -59,8 +58,7 @@ class MinionHoursInput with _$MinionHoursInput {
     return MinionHoursInput(
       userId: userId,
       facilityId: state.facility!.id,
-      start: start,
-      end: end,
+      period: MinionHoursPeriod(start: start, end: end),
       lunchBreak: state.lunchBreak,
     );
   }
@@ -70,13 +68,12 @@ class MinionHoursInput with _$MinionHoursInput {
 class MinionHoursOutput with _$MinionHoursOutput {
   const factory MinionHoursOutput({
     required int id,
-    required DateTime createdAt,
-    required DateTime updatedAt,
     required String userId,
     required String facilityId,
-    required DateTime start,
-    required DateTime end,
     required bool lunchBreak,
+    @_MinionHoursPeriodConverter() required MinionHoursPeriod period,
+    required DateTime createdAt,
+    required DateTime updatedAt,
     @JsonKey(name: 'Facilities') required Facility facility,
   }) = _MinionHoursOutput;
 
@@ -88,23 +85,24 @@ class MinionHoursOutput with _$MinionHoursOutput {
   List<String> get tableValues {
     return [
       facility.shortName,
-      DateFormat('dd/MM/yy').format(start),
-      '${DateFormat.Hm().format(start)} - ${DateFormat.Hm().format(end)}',
+      DateFormat('dd/MM/yy').format(period.start),
+      '${DateFormat.Hm().format(period.start)} - ${DateFormat.Hm().format(period.end)}',
       duration.toHm(),
     ];
   }
 
   Duration get duration {
-    return end.difference(start) - Duration(hours: lunchBreak ? 1 : 0);
+    return period.end.difference(period.start) -
+        Duration(hours: lunchBreak ? 1 : 0);
   }
 
   MinionHoursState toState() {
     return MinionHoursState(
       id: id,
       facility: facility,
-      date: start,
-      startTime: TimeOfDay.fromDateTime(start),
-      endTime: TimeOfDay.fromDateTime(end),
+      date: period.start,
+      startTime: TimeOfDay.fromDateTime(period.start),
+      endTime: TimeOfDay.fromDateTime(period.end),
       lunchBreak: lunchBreak,
     );
   }
@@ -119,11 +117,54 @@ class MinionHoursOutput with _$MinionHoursOutput {
 
     return copyWith(
       facilityId: facility.id,
-      start: start,
-      end: end,
-      lunchBreak: state.lunchBreak,
       facility: facility,
+      period: MinionHoursPeriod(start: start, end: end),
+      lunchBreak: state.lunchBreak,
     );
+  }
+}
+
+@freezed
+class MinionHoursPeriod with _$MinionHoursPeriod {
+  const factory MinionHoursPeriod({
+    required DateTime start,
+    required DateTime end,
+  }) = _MinionHoursPeriod;
+
+  const MinionHoursPeriod._();
+
+  factory MinionHoursPeriod.fromJson(Map<String, dynamic> json) =>
+      _$MinionHoursPeriodFromJson(json);
+}
+
+/// Converter for Postgres's `tstzrange` type
+///
+/// ie:
+///
+/// ```dart
+/// '["2024-06-26 21:45:00+00","2024-06-26 22:45:00+00")'
+/// ```
+class _MinionHoursPeriodConverter
+    implements JsonConverter<MinionHoursPeriod, String> {
+  const _MinionHoursPeriodConverter();
+
+  @override
+  MinionHoursPeriod fromJson(String json) {
+    final [start, end] = json
+        .replaceAll('"', '')
+        .replaceAll('[', '')
+        .replaceAll(')', '')
+        .split(',');
+
+    return MinionHoursPeriod(
+      start: DateTime.parse(start),
+      end: DateTime.parse(end),
+    );
+  }
+
+  @override
+  String toJson(MinionHoursPeriod object) {
+    return '["${object.start.toIso8601String()}","${object.end.toIso8601String()}")';
   }
 }
 

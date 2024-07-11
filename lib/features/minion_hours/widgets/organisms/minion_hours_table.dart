@@ -31,7 +31,7 @@ class MinionHoursTable extends HookConsumerWidget {
           if (e != null) values.addAll(e);
         }
 
-        return values..sort((a, b) => a.start.compareTo(b.start));
+        return values..sort((a, b) => a.period.start.compareTo(b.period.start));
       }),
     );
 
@@ -166,9 +166,8 @@ class MinionHoursEditButton extends HookConsumerWidget {
 
                   final notifier =
                       ref.read(minionHoursControllerProvider.notifier);
-                  final state = await MinionHoursDialog.show(
+                  final state = await MinionHoursDialog.edit(
                     context,
-                    date: data.start,
                     data: data,
                   );
                   if (state == null || !state.isValid()) return;

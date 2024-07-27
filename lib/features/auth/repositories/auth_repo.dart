@@ -15,12 +15,18 @@ class AuthRepo {
 
   final SupabaseClient _client;
 
-  static const _redirectUrl = 'com.luckuveryx.minions://login-callback/';
+  static const _redirectUrlApp = 'com.luckuveryx.minions://login-callback/';
+  static const _redirectUrlWeb = 'https://luckuveryx.github.io/minions/#/auth/';
 
   Future<void> signInEmail({required String email}) {
     return _client.auth.signInWithOtp(
       email: email,
-      emailRedirectTo: kIsWeb ? null : _redirectUrl,
+      emailRedirectTo: () {
+        if (kIsWeb) {
+          return kDebugMode ? null : _redirectUrlWeb;
+        }
+        return _redirectUrlApp;
+      }.call(),
     );
   }
 

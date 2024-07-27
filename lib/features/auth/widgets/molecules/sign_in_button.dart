@@ -26,7 +26,7 @@ class SignInButton extends HookConsumerWidget {
         textAlign: TextAlign.center,
       ),
       icon: isLoading ? const ShadButtonLoadingIcon() : null,
-      onPressed: onPressed,
+      onPressed: isLoading ? null : onPressed,
     );
   }
 }

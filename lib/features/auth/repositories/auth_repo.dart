@@ -16,7 +16,7 @@ class AuthRepo {
   final SupabaseClient _client;
 
   static const _redirectUrlApp = 'com.luckuveryx.minions://login-callback/';
-  static const _redirectUrlWeb = 'https://luckuveryx.github.io/minions/#/auth/';
+  static const _redirectUrlWeb = 'https://luckuveryx.github.io/minions/';
 
   Future<void> signInEmail({required String email}) {
     return _client.auth.signInWithOtp(

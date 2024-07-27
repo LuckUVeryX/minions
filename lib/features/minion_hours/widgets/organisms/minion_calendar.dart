@@ -43,7 +43,7 @@ class MinionCalendar extends HookConsumerWidget {
 
     return ShadDecorator(
       decoration: ShadDecoration(
-        border: ShadBorder(
+        border: ShadBorder.all(
           color: context.colorScheme.border,
           radius: BorderRadius.circular(8),
         ),

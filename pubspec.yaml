@@ -25,7 +25,7 @@ dependencies:
   table_calendar: ^3.1.2
 
 dev_dependencies:
-  build_runner: ^2.4.11
+  build_runner: ^2.4.12
   custom_lint: ^0.6.4
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.4.0

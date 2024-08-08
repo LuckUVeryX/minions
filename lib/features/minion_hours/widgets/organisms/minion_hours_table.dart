@@ -160,7 +160,7 @@ class MinionHoursEditButton extends HookConsumerWidget {
             children: [
               ShadButton.outline(
                 width: width,
-                text: Text(context.l10n.edit),
+                child: Text(context.l10n.edit),
                 onPressed: () async {
                   controller.value.hide();
 
@@ -177,7 +177,7 @@ class MinionHoursEditButton extends HookConsumerWidget {
               ),
               ShadButton.destructive(
                 width: width,
-                text: Text(context.l10n.delete),
+                child: Text(context.l10n.delete),
                 onPressed: () async {
                   controller.value.hide();
 

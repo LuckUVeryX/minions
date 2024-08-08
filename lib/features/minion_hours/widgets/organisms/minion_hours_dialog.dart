@@ -70,7 +70,7 @@ class MinionHoursDialog extends HookConsumerWidget {
             ? context.l10n.addMinionHours
             : context.l10n.editMinionHours,
       ),
-      content: Column(
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -103,7 +103,7 @@ class MinionHoursDialog extends HookConsumerWidget {
               child: Icon(LucideIcons.calendar),
             ),
             mainAxisAlignment: MainAxisAlignment.start,
-            text: Text(DateFormat.yMd().format(input.date ?? DateTime.now())),
+            child: Text(DateFormat.yMd().format(input.date ?? DateTime.now())),
             onPressed: () async {
               final notifier =
                   ref.read(minionHoursEditControllerProvider.notifier);
@@ -124,7 +124,7 @@ class MinionHoursDialog extends HookConsumerWidget {
             children: [
               Expanded(
                 child: ShadButton.outline(
-                  text: Text(
+                  child: Text(
                     input.startTime?.format(context) ?? context.l10n.start,
                   ),
                   onPressed: () async {
@@ -151,7 +151,7 @@ class MinionHoursDialog extends HookConsumerWidget {
               ),
               Expanded(
                 child: ShadButton.outline(
-                  text:
+                  child:
                       Text(input.endTime?.format(context) ?? context.l10n.end),
                   onPressed: () async {
                     final notifier =
@@ -184,12 +184,12 @@ class MinionHoursDialog extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ShadButton.outline(
-                text: Text(context.l10n.cancel),
                 onPressed: context.pop,
+                child: Text(context.l10n.cancel),
               ),
               ShadButton(
                 enabled: input.isValid(),
-                text: Text(context.l10n.save),
+                child: Text(context.l10n.save),
                 onPressed: () => context.pop(input),
               ),
             ],

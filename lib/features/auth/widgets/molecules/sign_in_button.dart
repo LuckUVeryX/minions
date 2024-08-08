@@ -21,12 +21,12 @@ class SignInButton extends HookConsumerWidget {
 
     return ShadButton(
       width: double.infinity,
-      text: Text(
+      icon: isLoading ? const ShadButtonLoadingIcon() : null,
+      onPressed: isLoading ? null : onPressed,
+      child: Text(
         context.l10n.authSignIn,
         textAlign: TextAlign.center,
       ),
-      icon: isLoading ? const ShadButtonLoadingIcon() : null,
-      onPressed: isLoading ? null : onPressed,
     );
   }
 }

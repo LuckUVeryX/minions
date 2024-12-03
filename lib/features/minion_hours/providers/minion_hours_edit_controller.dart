@@ -17,7 +17,7 @@ class MinionHoursEditController extends _$MinionHoursEditController {
     state = value.toState();
   }
 
-  void onFacilityChanged(Facility value) {
+  void onFacilityChanged(Facility? value) {
     state = state.copyWith(facility: value);
   }
 

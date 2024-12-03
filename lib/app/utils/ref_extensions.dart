@@ -28,7 +28,7 @@ extension WidgetRefX on WidgetRef {
   }
 }
 
-extension AutoDisposeRefX<T> on AutoDisposeRef<T> {
+extension RefX<T> on Ref<T> {
   void cache([Duration duration = const Duration(seconds: 30)]) {
     Timer? timer;
     final link = keepAlive();

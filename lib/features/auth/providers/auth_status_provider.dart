@@ -28,8 +28,9 @@ Stream<AuthState> authStatus(AuthStatusRef ref) async* {
         case AuthChangeEvent.passwordRecovery:
         case AuthChangeEvent.tokenRefreshed:
         case AuthChangeEvent.userUpdated:
-        case AuthChangeEvent.userDeleted:
         case AuthChangeEvent.mfaChallengeVerified:
+        // ignore: deprecated_member_use
+        case AuthChangeEvent.userDeleted:
           break;
       }
     },

@@ -67,7 +67,7 @@ class MinionCalendar extends HookConsumerWidget {
             weekendDecoration: defaultDecoration,
             outsideDecoration: defaultDecoration,
             outsideTextStyle: defaultTextStyle.copyWith(
-              color: context.colorScheme.foreground.withOpacity(0.3),
+              color: context.colorScheme.foreground.withValues(alpha: 0.3),
             ),
             todayDecoration: defaultDecoration.copyWith(
               color: context.colorScheme.secondary,
@@ -87,7 +87,8 @@ class MinionCalendar extends HookConsumerWidget {
               color: context.colorScheme.selection,
             ),
             withinRangeDecoration: defaultDecoration,
-            rangeHighlightColor: context.colorScheme.selection.withOpacity(0.5),
+            rangeHighlightColor:
+                context.colorScheme.selection.withValues(alpha: 0.5),
             rangeStartTextStyle: defaultTextStyle.copyWith(
               color: context.colorScheme.background,
             ),
